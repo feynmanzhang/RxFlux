@@ -3,10 +3,11 @@ package com.lean.android.stores;
 
 import com.lean.android.actions.TodoActions;
 import com.lean.android.models.Todo;
-import com.lean.rxflux.Action;
-import com.lean.rxflux.Store;
+import com.lean.rxflux.action.RxAction;
+import com.lean.rxflux.dispatcher.RxBus;
+import com.lean.rxflux.store.RxStore;
+import com.lean.rxflux.store.RxStoreChange;
 
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,11 +15,13 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
 /**
  * @author lean
  */
-public class TodoStore extends Store {
+public class TodoStore extends RxStore {
 
+    private final String STORE_ID = this.getClass().getName();
     private final List<Todo> todos = new ArrayList<>();
     private Todo lastDeleted;
 
@@ -32,51 +35,47 @@ public class TodoStore extends Store {
 
 
     @Override
-    @Subscribe
-    public void onAction(Action action) {
-        long id;
+    public void onAction(RxAction action) {
         switch (action.getType()) {
             case TodoActions.TODO_CREATE:
                 String text = ((String) action.getData());
                 create(text);
-                emitStoreChange();
+                emitStoreChange(new RxStoreChange());
                 break;
 
             case TodoActions.TODO_DESTROY:
-                id = ((long) action.getData());
+                long id = ((long) action.getData());
                 destroy(id);
-                emitStoreChange();
+                emitStoreChange(new RxStoreChange());
                 break;
 
             case TodoActions.TODO_UNDO_DESTROY:
                 undoDestroy();
-                emitStoreChange();
+                emitStoreChange(new RxStoreChange());
                 break;
 
             case TodoActions.TODO_COMPLETE:
                 id = ((long) action.getData());
                 updateComplete(id, true);
-                emitStoreChange();
+                emitStoreChange(new RxStoreChange());
                 break;
 
             case TodoActions.TODO_UNDO_COMPLETE:
                 id = ((long) action.getData());
                 updateComplete(id, false);
-                emitStoreChange();
+                emitStoreChange(new RxStoreChange());
                 break;
 
             case TodoActions.TODO_DESTROY_COMPLETED:
                 destroyCompleted();
-                emitStoreChange();
+                emitStoreChange(new RxStoreChange());
                 break;
 
             case TodoActions.TODO_TOGGLE_COMPLETE_ALL:
                 updateCompleteAll();
-                emitStoreChange();
+                emitStoreChange(new RxStoreChange());
                 break;
-
         }
-
     }
 
     private void destroyCompleted() {
@@ -162,11 +161,4 @@ public class TodoStore extends Store {
         Collections.sort(todos);
     }
 
-    @Override
-    public StoreChangeEvent changeEvent() {
-        return new TodoStoreChangeEvent();
-    }
-
-    public class TodoStoreChangeEvent implements StoreChangeEvent {
-    }
 }

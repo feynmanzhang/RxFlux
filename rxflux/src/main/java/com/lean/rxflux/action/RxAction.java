@@ -1,13 +1,15 @@
-package com.lean.rxflux;
+package com.lean.rxflux.action;
 
 /**
+ * RxAction, 事件模板
+ *
  * @author lean
  */
-public class Action<T> {
+public class RxAction<T> {
     private final String type;
     private final T data;
 
-    public Action(String type, T data) {
+    public RxAction(String type, T data) {
         this.type = type;
         this.data = data;
     }

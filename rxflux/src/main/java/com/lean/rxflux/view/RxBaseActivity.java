@@ -1,17 +1,23 @@
-package com.lean.rxflux;
+package com.lean.rxflux.view;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 
 
+import com.lean.rxflux.store.RxStore;
+import com.lean.rxflux.dispatcher.RxViewListener;
+import com.lean.rxflux.action.RxActionsCreator;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
+ * Activity的抽象基类
+ *
  * @author lean
  */
-public class BaseActivity<T1 extends ActionsCreator, T2 extends Store> extends Activity {
+public abstract class RxBaseActivity<T1 extends RxActionsCreator, T2 extends RxStore> extends Activity implements RxViewListener {
 
     private T1 actionsCreator;
     private T2 store;
@@ -32,7 +38,7 @@ public class BaseActivity<T1 extends ActionsCreator, T2 extends Store> extends A
         }
 
         // register
-        actionsCreator.getDispatcher().register(store);
+        actionsCreator.getDispatcher().subscribeRxStore(store);
     }
 
     @Override
@@ -47,9 +53,6 @@ public class BaseActivity<T1 extends ActionsCreator, T2 extends Store> extends A
     protected void onPause() {
         super.onPause();
         store.unregister(this);
-
-        // unregister
-        actionsCreator.getDispatcher().unregister(store);
     }
 
 
@@ -58,6 +61,8 @@ public class BaseActivity<T1 extends ActionsCreator, T2 extends Store> extends A
     protected void onDestroy() {
         super.onDestroy();
 
+        //unregister
+        actionsCreator.getDispatcher().unsubscribeRxStore(store);
     }
 
     public T1 getActionsCreator() {

@@ -13,12 +13,12 @@ import android.widget.EditText;
 
 import com.lean.android.stores.TodoStore;
 import com.lean.android.actions.TodoActionsCreator;
-import com.lean.rxflux.BaseActivity;
-import com.lean.android.R;
+import com.lean.rxflux.view.RxBaseActivity;
+import com.lean.rxflux.store.RxStoreChange;
 
-import org.greenrobot.eventbus.Subscribe;
 
-public class MainActivity extends BaseActivity<TodoActionsCreator, TodoStore> {
+
+public class MainActivity extends RxBaseActivity<TodoActionsCreator, TodoStore> {
 
     private EditText mainInput;
     private ViewGroup mainLayout;
@@ -72,8 +72,7 @@ public class MainActivity extends BaseActivity<TodoActionsCreator, TodoStore> {
         mainList.setAdapter(listAdapter);
     }
 
-    @Subscribe
-    public void onTodoStoreChange(TodoStore.TodoStoreChangeEvent event) {
+    public void onRxStoreChanged(RxStoreChange event) {
         updateUI();
     }
 

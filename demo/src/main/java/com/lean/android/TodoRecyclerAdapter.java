@@ -12,8 +12,7 @@ import android.widget.TextView;
 
 import com.lean.android.actions.TodoActionsCreator;
 import com.lean.android.models.Todo;
-import com.lean.rxflux.ActionsCreator;
-import com.lean.android.R;
+import com.lean.rxflux.action.RxActionsCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +23,10 @@ import java.util.List;
  */
 public class TodoRecyclerAdapter extends RecyclerView.Adapter<TodoRecyclerAdapter.ViewHolder> {
 
-    private static ActionsCreator actionsCreator;
+    private static RxActionsCreator actionsCreator;
     private List<Todo> todos;
 
-    public TodoRecyclerAdapter(ActionsCreator actionsCreator) {
+    public TodoRecyclerAdapter(RxActionsCreator actionsCreator) {
         this.todos = new ArrayList<>();
         TodoRecyclerAdapter.actionsCreator = actionsCreator;
     }
