@@ -18,7 +18,7 @@ RxFlux是使用RxJava异步事件编程实现Flux模型的基础Android编程框
 
 * Based on event, single direction flow make code clearer.
 
-&emsp;&emsp;[Flux](https://facebook.github.io/flux/docs/overview.html)原本是Facebook推崇的Web端架构理念，而RxFlux是Flux的Android版实现。基于RxFlux的分层可以有效的解耦和减少View层代码，同时RxFlux的单向数据流也可以非常的方便事件跟踪。
+[Flux](https://facebook.github.io/flux/docs/overview.html)原本是Facebook推崇的Web端架构理念，而RxFlux是Flux的Android版实现。基于RxFlux的分层可以有效的解耦和减少View层代码，同时RxFlux的单向数据流也可以非常的方便事件跟踪。
 
 ![Flux模式结构][1]
 
