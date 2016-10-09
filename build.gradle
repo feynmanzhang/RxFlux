@@ -3,7 +3,6 @@
 buildscript {
     repositories {
         mavenLocal()
-        maven { url "http://nexus.sdp.nd/nexus/content/groups/android-public/" }
         mavenCentral()
         jcenter()
     }
@@ -18,7 +17,6 @@ buildscript {
 allprojects {
     repositories {
         mavenLocal()
-        maven { url "http://nexus.sdp.nd/nexus/content/groups/android-public/" }
         mavenCentral()
         jcenter()
     }

@@ -42,7 +42,7 @@ RxFlux是使用RxJava异步事件编程实现Flux模型的基础Android编程框
 
 - [ ] 整合Retrofit2,实现Rx网络请求
 
-- [ ] 整合SqlBrite，实现Rx DAO
+- [x] 整合SqlBrite，实现Rx DAO
 
 - [ ] 整合RxLifecycle，保证完整生命周期和避免内存泄漏
 
